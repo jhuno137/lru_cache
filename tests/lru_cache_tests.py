@@ -1,7 +1,5 @@
 import random
 import unittest
-import sys
-sys.path.insert(0, '../cache')
 from cache.lru import LRUCache
 
 

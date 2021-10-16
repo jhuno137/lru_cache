@@ -13,18 +13,20 @@ class CacheNode(object):
 class LRUCache(object):
     """"
     Implementation of a Least Recent Use cache using a Doubly Linked List (DLL)
-    and a dictionary (hash map) which allows O(1) the retrieval of cache elements
+    and a dictionary (hash map) which allows O(1) retrieval of cache elements
     The main (private) operations on cache elements are:
     * _push: to add an element on the top of the cache (head of the DLL)
     * _pop: to remove the least used element (tail of the DLL by construction) when the cache
             reaches it's maximum capacity
+    * _unlink: to remove a node from the DLL and connects neighbour nodes pointers (if any)
 
     There is also a (private) helper method _get_size() to retrieve the current cache size
 
-    The public API consists of three methods:
+    The public API consists of four methods:
 
-    * get(key) : to retrieve an elemnt from the cache
+    * get(key) : to retrieve an element from the cache
     * put(key, value): to add a new element or update an existing one from the cache
+    * delete(key): deletes a key from the cache (if exists)
     * reset(): clears the cache
     """
     def __init__(self, capacity: int):

@@ -62,10 +62,6 @@ class TestLRUCache(unittest.TestCase):
 		cache.delete("3")
 		self.assertEqual(cache.get("3"), None)
 		self.assertEqual(cache._get_size(), 4)
-		print(cache._head.value, cache._tail.value)
-		cache.get("2")
-		cache.get("0")
-		print(cache._head.value, cache._tail.value)
 
 
 if __name__ == "__main__":

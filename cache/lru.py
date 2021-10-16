@@ -69,6 +69,12 @@ class LRUCache(object):
             del self._cache[self._tail.key]
             self._pop()
 
+    def delete(self, key) -> None:
+        if key in self._cache.keys():
+            node = self._cache[key]
+            self._unlink(node)
+            del self._cache[key]
+
     def reset(self) -> None:
         """
         Clear the cache
@@ -119,4 +125,18 @@ class LRUCache(object):
             new_tail = self._tail.prev
             new_tail.next = None
             self._tail = new_tail
+
+    def _unlink(self, node):
+        if node is self._head:
+            if self._head.next is not None:
+                new_head = self._head.next
+                new_head.prev = None
+                self._head = new_head
+        elif node is self._tail:
+            self._pop()
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
+            node.next = None
+            node.prev = None
 

@@ -52,5 +52,17 @@ class TestLRUCache(unittest.TestCase):
 		self.assertEqual(cache._tail, None)
 		self.assertEqual(cache._get_size(), 0)
 
+	def test_it_deletes(self):
+		cache = LRUCache(5)
+		for n in range(5):
+			# fill cache up to capacity
+			cache.put(str(n), n)
+
+		self.assertEqual(cache.get("3"), 3)
+		cache.delete("3")
+		self.assertEqual(cache.get("3"), None)
+		self.assertEqual(cache._get_size(), 4)
+
+
 if __name__ == "__main__":
 	unittest.main()

@@ -72,6 +72,11 @@ class LRUCache(object):
             self._pop()
 
     def delete(self, key) -> None:
+        """
+        Remove an element from the cache
+        :param key:
+        :return:
+        """
         if key in self._cache.keys():
             node = self._cache[key]
             self._unlink(node)
@@ -94,14 +99,11 @@ class LRUCache(object):
         """
         return len(self._cache)
 
-    def _push(self, node):
+    def _push(self, node) -> None:
         """
-        Set node as head
-        Two edge cases are considered;
-        1. When the list is empty and we are adding a new element to the cache, this element is automatically the head
-           of the DLL
-        2. When the DLL only contains the head (there is only one element in the cache) then the second element is set
-           as the tail of the DLL
+        Set node as head of the DLL
+        :param node:
+        :return:
         """
         size = self._get_size()
         if size == 1:
@@ -109,6 +111,12 @@ class LRUCache(object):
             self._head = node
             return
 
+        if node is self._tail:
+            # reset tail to previous node
+            self._tail = self._tail.prev
+            self._tail.next = None
+
+        # set new node as head
         node.next = self._head
         self._head.prev = node
         self._head = node

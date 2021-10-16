@@ -35,10 +35,9 @@ class TestLRUCache(unittest.TestCase):
 				# fill cache up to capacity
 				cache.put(str(n), n)
 
-			self.assertEqual(cache.get("0"), 0)
 			# Adding one more element to the cache should result in a cache
 			# miss for the first element inserted
-			cache.put("foo", "var")
+			cache.put("foo", "bar")
 			self.assertEqual(cache.get("0"), None)
 
 	def test_it_resets_the_cache(self):
@@ -63,6 +62,10 @@ class TestLRUCache(unittest.TestCase):
 		cache.delete("3")
 		self.assertEqual(cache.get("3"), None)
 		self.assertEqual(cache._get_size(), 4)
+		print(cache._head.value, cache._tail.value)
+		cache.get("2")
+		cache.get("0")
+		print(cache._head.value, cache._tail.value)
 
 
 if __name__ == "__main__":
